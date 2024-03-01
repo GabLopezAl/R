@@ -1,0 +1,122 @@
+
+R version 4.3.2 (2023-10-31 ucrt) -- "Eye Holes"
+Copyright (C) 2023 The R Foundation for Statistical Computing
+Platform: x86_64-w64-mingw32/x64 (64-bit)
+
+R es un software libre y viene sin GARANTIA ALGUNA.
+Usted puede redistribuirlo bajo ciertas circunstancias.
+Escriba 'license()' o 'licence()' para detalles de distribucion.
+
+R es un proyecto colaborativo con muchos contribuyentes.
+Escriba 'contributors()' para obtener más información y
+'citation()' para saber cómo citar R o paquetes de R en publicaciones.
+
+Escriba 'demo()' para demostraciones, 'help()' para el sistema on-line de ayuda,
+o 'help.start()' para abrir el sistema de ayuda HTML con su navegador.
+Escriba 'q()' para salir de R.
+
+[Previously saved workspace restored]
+
+> library(readr)
+> Bank = read_csv("UniversalBank.csv")
+[1mindexing[0m [34mUniversalBank.csv[0m [================================] [32m1.28GB/s[0m, eta: [36m 0s[0m                                                                                                                   Rows: 5000 Columns: 14
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+dbl (14): ID, Age, Experience, Income, ZIP Code, Family, CCAvg, Education, M...
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+> View(Bank)
+> View(Bank)
+> library(caTools)
+> set.seed(123)
+> split = sample.split(Bank$Online & Bank$CreditCard & Bank$`Personal Loan`, SplitRatio = 0.6)
+> training_set = subset(Bank, split == TRUE)
+> test_set = subset(Bank, split == FALSE)
+> View(training_set)
+> View(test_set)
+> Bank <- table(Online = training_set$Online,
++ CreditCard = training_set$CreditCard,
++ Personal Loan = training_set$Personal Loan)
+Error: unexpected symbol in:
+"CreditCard = training_set$CreditCard,
+Personal Loan"
+> CreditCard = training_set$CreditCard,
+Error: inesperado ',' en "CreditCard = training_set$CreditCard,"
+> Bank <- table(Online = training_set$Online,
++ CreditCard = training_set$CreditCard,
++ 'Personal Loan' = training_set$'Personal Loan')
+> View(Bank)
+> Bank = read_csv("UniversalBank.csv")
+[1mindexing[0m [34mUniversalBank.csv[0m [================================] [32m2.15GB/s[0m, eta: [36m 0s[0m                                                                                                                   Rows: 5000 Columns: 14
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+dbl (14): ID, Age, Experience, Income, ZIP Code, Family, CCAvg, Education, M...
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+> dinamicTable<-table(Online = training_set$Online,
++ CreditCard = training_set$CreditCard,
++ 'Personal Loan' = training_set$'Personal Loan')
+> dinamicTable
+, , Personal Loan = 0
+
+      CreditCard
+Online    0    1
+     0  761  310
+     1 1156  487
+
+, , Personal Loan = 1
+
+      CreditCard
+Online    0    1
+     0   84   40
+     1  113   49
+
+> View(dinamicTable)
+> View(dinamicTable)
+> filtrarResultados<-dinamicTable[dinamicTable$Online == 1 & dinamicTable$CreditCard == 1,]
+Error in dinamicTable$Online : $ operator is invalid for atomic vectors
+> dinamicTable[1,1,]
+  0   1 
+761  84 
+> dinamicTable
+, , Personal Loan = 0
+
+      CreditCard
+Online    0    1
+     0  761  310
+     1 1156  487
+
+, , Personal Loan = 1
+
+      CreditCard
+Online    0    1
+     0   84   40
+     1  113   49
+
+> dinamicTable[3,3,3]
+Error in `[.default`(dinamicTable, 3, 3, 3) : 
+  subíndice fuera de  los límites
+> dinamicTable[1,1,1]
+[1] 761
+> dinamicTable[1,1,]
+  0   1 
+761  84 
+> 487/sum(diamicTable$Freq)
+Error: objeto 'diamicTable' no encontrado
+> 487/sum(dinamicTable$Freq)
+Error in dinamicTable$Freq : $ operator is invalid for atomic vectors
+> 487/sum(dinamicTable)
+[1] 0.1623333
+> dinamicTable[1,1,1]/sum(dinamicTable)
+[1] 0.2536667
+> dinamicTable[1,1,]/sum(dinamicTable)
+        0         1 
+0.2536667 0.0280000 
+> dinamicTable["1","1",]/sum(dinamicTable)
+         0          1 
+0.16233333 0.01633333 
+> dinamicTable["1","1","1"]/sum(dinamicTable)
+[1] 0.01633333
+> 
