@@ -1,0 +1,401 @@
+
+R version 4.3.2 (2023-10-31 ucrt) -- "Eye Holes"
+Copyright (C) 2023 The R Foundation for Statistical Computing
+Platform: x86_64-w64-mingw32/x64 (64-bit)
+
+R es un software libre y viene sin GARANTIA ALGUNA.
+Usted puede redistribuirlo bajo ciertas circunstancias.
+Escriba 'license()' o 'licence()' para detalles de distribucion.
+
+R es un proyecto colaborativo con muchos contribuyentes.
+Escriba 'contributors()' para obtener más información y
+'citation()' para saber cómo citar R o paquetes de R en publicaciones.
+
+Escriba 'demo()' para demostraciones, 'help()' para el sistema on-line de ayuda,
+o 'help.start()' para abrir el sistema de ayuda HTML con su navegador.
+Escriba 'q()' para salir de R.
+
+[Previously saved workspace restored]
+
+> library("dplyr")
+
+Attaching package: ‘dplyr’
+
+The following objects are masked from ‘package:stats’:
+
+    filter, lag
+
+The following objects are masked from ‘package:base’:
+
+    intersect, setdiff, setequal, union
+
+> library("class")
+> library("ggplot2")
+> library("GGally")
+Error in library("GGally") : there is no package called ‘GGally’
+> install.packages(GGally)
+Error: objeto 'GGally' no encontrado
+> install.packages("GGally")
+Installing package into ‘C:/Users/DELL/AppData/Local/R/win-library/4.3’
+(as ‘lib’ is unspecified)
+--- Please select a CRAN mirror for use in this session ---
+also installing the dependencies ‘labelled’, ‘broom.helpers’, ‘patchwork’, ‘ggstats’
+
+probando la URL 'https://cran.itam.mx/bin/windows/contrib/4.3/labelled_2.12.0.zip'
+Content type 'application/zip' length 320301 bytes (312 KB)
+downloaded 312 KB
+
+probando la URL 'https://cran.itam.mx/bin/windows/contrib/4.3/broom.helpers_1.14.0.zip'
+Content type 'application/zip' length 536805 bytes (524 KB)
+downloaded 524 KB
+
+probando la URL 'https://cran.itam.mx/bin/windows/contrib/4.3/patchwork_1.2.0.zip'
+Content type 'application/zip' length 3299798 bytes (3.1 MB)
+downloaded 3.1 MB
+
+probando la URL 'https://cran.itam.mx/bin/windows/contrib/4.3/ggstats_0.5.1.zip'
+Content type 'application/zip' length 866939 bytes (846 KB)
+downloaded 846 KB
+
+probando la URL 'https://cran.itam.mx/bin/windows/contrib/4.3/GGally_2.2.0.zip'
+Content type 'application/zip' length 1984986 bytes (1.9 MB)
+downloaded 1.9 MB
+
+package ‘labelled’ successfully unpacked and MD5 sums checked
+package ‘broom.helpers’ successfully unpacked and MD5 sums checked
+package ‘patchwork’ successfully unpacked and MD5 sums checked
+package ‘ggstats’ successfully unpacked and MD5 sums checked
+package ‘GGally’ successfully unpacked and MD5 sums checked
+
+The downloaded binary packages are in
+        C:\Users\DELL\AppData\Local\Temp\RtmpK0cQHP\downloaded_packages
+> library("GGally")
+Registered S3 method overwritten by 'GGally':
+  method from   
+  +.gg   ggplot2
+> library("caret")
+Error in library("caret") : there is no package called ‘caret’
+> install.packages("caret")
+Installing package into ‘C:/Users/DELL/AppData/Local/R/win-library/4.3’
+(as ‘lib’ is unspecified)
+also installing the dependencies ‘listenv’, ‘parallelly’, ‘future’, ‘globals’, ‘shape’, ‘future.apply’, ‘numDeriv’, ‘progressr’, ‘SQUAREM’, ‘diagram’, ‘lava’, ‘prodlim’, ‘iterators’, ‘clock’, ‘gower’, ‘hardhat’, ‘ipred’, ‘foreach’, ‘ModelMetrics’, ‘pROC’, ‘recipes’
+
+probando la URL 'https://cran.itam.mx/bin/windows/contrib/4.3/listenv_0.9.1.zip'
+Content type 'application/zip' length 109091 bytes (106 KB)
+downloaded 106 KB
+
+probando la URL 'https://cran.itam.mx/bin/windows/contrib/4.3/parallelly_1.36.0.zip'
+Content type 'application/zip' length 351037 bytes (342 KB)
+downloaded 342 KB
+
+probando la URL 'https://cran.itam.mx/bin/windows/contrib/4.3/future_1.33.1.zip'
+Content type 'application/zip' length 677155 bytes (661 KB)
+downloaded 661 KB
+
+probando la URL 'https://cran.itam.mx/bin/windows/contrib/4.3/globals_0.16.2.zip'
+Content type 'application/zip' length 107014 bytes (104 KB)
+downloaded 104 KB
+
+probando la URL 'https://cran.itam.mx/bin/windows/contrib/4.3/shape_1.4.6.zip'
+Content type 'application/zip' length 786293 bytes (767 KB)
+downloaded 767 KB
+
+probando la URL 'https://cran.itam.mx/bin/windows/contrib/4.3/future.apply_1.11.1.zip'
+Content type 'application/zip' length 156902 bytes (153 KB)
+downloaded 153 KB
+
+probando la URL 'https://cran.itam.mx/bin/windows/contrib/4.3/numDeriv_2016.8-1.1.zip'
+Content type 'application/zip' length 116116 bytes (113 KB)
+downloaded 113 KB
+
+probando la URL 'https://cran.itam.mx/bin/windows/contrib/4.3/progressr_0.14.0.zip'
+Content type 'application/zip' length 387352 bytes (378 KB)
+downloaded 378 KB
+
+probando la URL 'https://cran.itam.mx/bin/windows/contrib/4.3/SQUAREM_2021.1.zip'
+Content type 'application/zip' length 183124 bytes (178 KB)
+downloaded 178 KB
+
+probando la URL 'https://cran.itam.mx/bin/windows/contrib/4.3/diagram_1.6.5.zip'
+Content type 'application/zip' length 682134 bytes (666 KB)
+downloaded 666 KB
+
+probando la URL 'https://cran.itam.mx/bin/windows/contrib/4.3/lava_1.7.3.zip'
+Content type 'application/zip' length 2563758 bytes (2.4 MB)
+downloaded 2.4 MB
+
+probando la URL 'https://cran.itam.mx/bin/windows/contrib/4.3/prodlim_2023.08.28.zip'
+Content type 'application/zip' length 415374 bytes (405 KB)
+downloaded 405 KB
+
+probando la URL 'https://cran.itam.mx/bin/windows/contrib/4.3/iterators_1.0.14.zip'
+Content type 'application/zip' length 353028 bytes (344 KB)
+downloaded 344 KB
+
+probando la URL 'https://cran.itam.mx/bin/windows/contrib/4.3/clock_0.7.0.zip'
+Content type 'application/zip' length 2131936 bytes (2.0 MB)
+downloaded 2.0 MB
+
+probando la URL 'https://cran.itam.mx/bin/windows/contrib/4.3/gower_1.0.1.zip'
+Content type 'application/zip' length 314815 bytes (307 KB)
+downloaded 307 KB
+
+probando la URL 'https://cran.itam.mx/bin/windows/contrib/4.3/hardhat_1.3.1.zip'
+Content type 'application/zip' length 836257 bytes (816 KB)
+downloaded 816 KB
+
+probando la URL 'https://cran.itam.mx/bin/windows/contrib/4.3/ipred_0.9-14.zip'
+Content type 'application/zip' length 388324 bytes (379 KB)
+downloaded 379 KB
+
+probando la URL 'https://cran.itam.mx/bin/windows/contrib/4.3/foreach_1.5.2.zip'
+Content type 'application/zip' length 148208 bytes (144 KB)
+downloaded 144 KB
+
+probando la URL 'https://cran.itam.mx/bin/windows/contrib/4.3/ModelMetrics_1.2.2.2.zip'
+Content type 'application/zip' length 484864 bytes (473 KB)
+downloaded 473 KB
+
+probando la URL 'https://cran.itam.mx/bin/windows/contrib/4.3/pROC_1.18.5.zip'
+Content type 'application/zip' length 1169912 bytes (1.1 MB)
+downloaded 1.1 MB
+
+probando la URL 'https://cran.itam.mx/bin/windows/contrib/4.3/recipes_1.0.9.zip'
+Content type 'application/zip' length 1607941 bytes (1.5 MB)
+downloaded 1.5 MB
+
+probando la URL 'https://cran.itam.mx/bin/windows/contrib/4.3/caret_6.0-94.zip'
+Content type 'application/zip' length 3577359 bytes (3.4 MB)
+downloaded 3.4 MB
+
+package ‘listenv’ successfully unpacked and MD5 sums checked
+package ‘parallelly’ successfully unpacked and MD5 sums checked
+package ‘future’ successfully unpacked and MD5 sums checked
+package ‘globals’ successfully unpacked and MD5 sums checked
+package ‘shape’ successfully unpacked and MD5 sums checked
+package ‘future.apply’ successfully unpacked and MD5 sums checked
+package ‘numDeriv’ successfully unpacked and MD5 sums checked
+package ‘progressr’ successfully unpacked and MD5 sums checked
+package ‘SQUAREM’ successfully unpacked and MD5 sums checked
+package ‘diagram’ successfully unpacked and MD5 sums checked
+package ‘lava’ successfully unpacked and MD5 sums checked
+package ‘prodlim’ successfully unpacked and MD5 sums checked
+package ‘iterators’ successfully unpacked and MD5 sums checked
+package ‘clock’ successfully unpacked and MD5 sums checked
+package ‘gower’ successfully unpacked and MD5 sums checked
+package ‘hardhat’ successfully unpacked and MD5 sums checked
+package ‘ipred’ successfully unpacked and MD5 sums checked
+package ‘foreach’ successfully unpacked and MD5 sums checked
+package ‘ModelMetrics’ successfully unpacked and MD5 sums checked
+package ‘pROC’ successfully unpacked and MD5 sums checked
+package ‘recipes’ successfully unpacked and MD5 sums checked
+package ‘caret’ successfully unpacked and MD5 sums checked
+
+The downloaded binary packages are in
+        C:\Users\DELL\AppData\Local\Temp\RtmpK0cQHP\downloaded_packages
+> library("caret")
+Loading required package: lattice
+> set.seed(12345)
+> pokemon_data <- read.csv("pokemon.csv")
+> View(pokemon_data4)
+Error: objeto 'pokemon_data4' no encontrado
+> View(pokemon_data)
+> reduced_pokemon_data <- pokemon_data %>%
++ select(name, attack, defense, sp_attack, sp_defense, speed, hp, type1, type2)
+> head(reduced_pokemon_data)
+        name attack defense sp_attack sp_defense speed hp type1  type2
+1  Bulbasaur     49      49        65         65    45 45 grass poison
+2    Ivysaur     62      63        80         80    60 60 grass poison
+3   Venusaur    100     123       122        120    80 80 grass poison
+4 Charmander     52      43        60         50    65 39  fire       
+5 Charmeleon     64      58        80         65    80 58  fire       
+6  Charizard    104      78       159        115   100 78  fire flying
+> final_dataset <- reduced_pokemon_data %>%
++ filter( type2 == "" & type1 %in% c( "bug", "dragon", "fighting", "electric", "normal"))
+> final_dataset <- final_dataset %>%
++ select(-c(type2)) %>%
++ mutate_at(vars(type1), ~(factor(type1)))
+> random_rows <- sample(1:nrow(final_dataset), nrow(final_dataset) * .75)
+> training_data <- final_dataset[random_rows, ]
+> # Renumber the rows
+> row.names(training_data) <- 1:nrow(training_data)
+> testing_data <- final_dataset[-random_rows, ]
+> random_rows_validation <- sample(1:nrow(training_data), nrow(training_data) * .30)
+> validation_data <- training_data[random_rows_validation, ]
+> training_data <- training_data[-random_rows_validation, ]
+> ggplot(data = training_data, aes(x = attack, y = speed, col = type1)) +
++ geom_point(size = 3) +
++ ggtitle("Attack versus Speed for Pokemon of a Single Type (training)")
+> View(final_dataset)
+> combined_training_test <- rbind(training_data, testing_data)
+
+> combined_training_test <- rbind(training_data, testing_data)
+> combined_training_test$type1 <- factor(c(as.character(training_data$type1), rep(NA,
++ nrow(testing_data))))
+> ggplot(data = combined_training_test, aes(x = attack, y = speed, col = type1)) +
++ geom_point(size = 3) +
++ ggtitle("Attack versus Speed for Pokemon of a Single Type (training and testing)")
+> pairs(final_dataset[, 2:8],col = training_data$type1,lower.panel=NULL)
+> #
+> #
+> #
+> training_data_speed_attack <- training_data %>%
++ select(c(speed,attack))
+> testing_data_speed_attack <- testing_data %>%
++ select(c(speed,attack))
+> 
+> 
+> knn_attack_speed <- knn(train = training_data_speed_attack, test = testing_data_speed_attack, cl=training_data$type1, k = 5)
+> confusionMatrix(knn_attack_speed,testing_data$type1 )
+Confusion Matrix and Statistics
+
+          Reference
+Prediction bug dragon electric fighting normal
+  bug        2      0        1        0      1
+  dragon     0      0        0        1      0
+  electric   0      0        1        0      1
+  fighting   1      0        0        1      1
+  normal     2      2        3        7     11
+
+Overall Statistics
+                                          
+               Accuracy : 0.4286          
+                 95% CI : (0.2632, 0.6065)
+    No Information Rate : 0.4             
+    P-Value [Acc > NIR] : 0.4272          
+                                          
+                  Kappa : 0.1422          
+                                          
+ Mcnemar's Test P-Value : NA              
+
+Statistics by Class:
+
+                     Class: bug Class: dragon Class: electric Class: fighting
+Sensitivity             0.40000       0.00000         0.20000         0.11111
+Specificity             0.93333       0.96970         0.96667         0.92308
+Pos Pred Value          0.50000       0.00000         0.50000         0.33333
+Neg Pred Value          0.90323       0.94118         0.87879         0.75000
+Prevalence              0.14286       0.05714         0.14286         0.25714
+Detection Rate          0.05714       0.00000         0.02857         0.02857
+Detection Prevalence    0.11429       0.02857         0.05714         0.08571
+Balanced Accuracy       0.66667       0.48485         0.58333         0.51709
+                     Class: normal
+Sensitivity                 0.7857
+Specificity                 0.3333
+Pos Pred Value              0.4400
+Neg Pred Value              0.7000
+Prevalence                  0.4000
+Detection Rate              0.3143
+Detection Prevalence        0.7143
+Balanced Accuracy           0.5595
+> trControl <- trainControl(method = "cv",
++ number = 10)
+> fit <- train(type1 ~ speed + attack,
++ method = "knn",
++ tuneGrid = expand.grid(k = 1:5),
++ trControl = trControl,
++ metric = "Accuracy",
++ data = validation_data)
+> fit
+k-Nearest Neighbors 
+
+31 samples
+ 2 predictor
+ 5 classes: 'bug', 'dragon', 'electric', 'fighting', 'normal' 
+
+No pre-processing
+Resampling: Cross-Validated (10 fold) 
+Summary of sample sizes: 28, 29, 29, 27, 26, 28, ... 
+Resampling results across tuning parameters:
+
+  k  Accuracy   Kappa      
+  1  0.3350000  -0.01774147
+  2  0.4433333   0.13273810
+  3  0.3516667   0.05808913
+  4  0.4566667   0.19089390
+  5  0.5066667   0.24827264
+
+Accuracy was used to select the optimal model using the largest value.
+The final value used for the model was k = 5.
+> #Solo por diversión y curiosidad, ¿qué pasaría si decidiéramos usar todos nuestros atributos
+> #del Pokémon en lugar de solo mirar la velocidad y el ataque? ¿Cómo cambiaría eso nuestro
+> #análisis? Primero determinamos nuestro k óptimo:
+> 
+> # Determine the optimal K
+> fit_all_attributes <- train(type1 ~ speed + attack + defense + hp + sp_attack + sp_defense,
++ method = "knn",
++ tuneGrid = expand.grid(k = 1:5),
++ trControl = trControl,
++ metric = "Accuracy",
++ data = validation_data)
+> fit_all_attributes
+k-Nearest Neighbors 
+
+31 samples
+ 6 predictor
+ 5 classes: 'bug', 'dragon', 'electric', 'fighting', 'normal' 
+
+No pre-processing
+Resampling: Cross-Validated (10 fold) 
+Summary of sample sizes: 29, 29, 28, 27, 27, 28, ... 
+Resampling results across tuning parameters:
+
+  k  Accuracy   Kappa    
+  1  0.4833333  0.1915584
+  2  0.5000000  0.2445887
+  3  0.5416667  0.2743590
+  4  0.5583333  0.2772727
+  5  0.5333333  0.2300000
+
+Accuracy was used to select the optimal model using the largest value.
+The final value used for the model was k = 4.
+> #Luego ejecutamos el modelo:
+> #Perform the KNN
+> training_data_all <- training_data %>%
++ select(c(speed,attack, defense, hp, sp_attack, sp_defense))
+> testing_data_all <- testing_data %>%
++ select(c(speed,attack, defense, hp, sp_attack, sp_defense))
+> knn_all <- knn(train = training_data_all, test = testing_data_all, cl = training_data$type1, k = 4)
+> confusionMatrix(knn_all,testing_data$type1 )
+Confusion Matrix and Statistics
+
+          Reference
+Prediction bug dragon electric fighting normal
+  bug        2      0        0        0      0
+  dragon     2      1        0        0      0
+  electric   0      0        3        0      0
+  fighting   1      1        0        1      0
+  normal     0      0        2        8     14
+
+Overall Statistics
+                                          
+               Accuracy : 0.6             
+                 95% CI : (0.4211, 0.7613)
+    No Information Rate : 0.4             
+    P-Value [Acc > NIR] : 0.01326         
+                                          
+                  Kappa : 0.4103          
+                                          
+ Mcnemar's Test P-Value : NA              
+
+Statistics by Class:
+
+                     Class: bug Class: dragon Class: electric Class: fighting
+Sensitivity             0.40000       0.50000         0.60000         0.11111
+Specificity             1.00000       0.93939         1.00000         0.92308
+Pos Pred Value          1.00000       0.33333         1.00000         0.33333
+Neg Pred Value          0.90909       0.96875         0.93750         0.75000
+Prevalence              0.14286       0.05714         0.14286         0.25714
+Detection Rate          0.05714       0.02857         0.08571         0.02857
+Detection Prevalence    0.05714       0.08571         0.08571         0.08571
+Balanced Accuracy       0.70000       0.71970         0.80000         0.51709
+                     Class: normal
+Sensitivity                 1.0000
+Specificity                 0.5238
+Pos Pred Value              0.5833
+Neg Pred Value              1.0000
+Prevalence                  0.4000
+Detection Rate              0.4000
+Detection Prevalence        0.6857
+Balanced Accuracy           0.7619
+> 

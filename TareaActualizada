@@ -1,0 +1,200 @@
+
+R version 4.3.2 (2023-10-31 ucrt) -- "Eye Holes"
+Copyright (C) 2023 The R Foundation for Statistical Computing
+Platform: x86_64-w64-mingw32/x64 (64-bit)
+
+R es un software libre y viene sin GARANTIA ALGUNA.
+Usted puede redistribuirlo bajo ciertas circunstancias.
+Escriba 'license()' o 'licence()' para detalles de distribucion.
+
+R es un proyecto colaborativo con muchos contribuyentes.
+Escriba 'contributors()' para obtener más información y
+'citation()' para saber cómo citar R o paquetes de R en publicaciones.
+
+Escriba 'demo()' para demostraciones, 'help()' para el sistema on-line de ayuda,
+o 'help.start()' para abrir el sistema de ayuda HTML con su navegador.
+Escriba 'q()' para salir de R.
+
+[Previously saved workspace restored]
+
+> library(readr)
+> library(caTools)
+> library(tidyverse)
+── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
+✔ dplyr     1.1.4     ✔ purrr     1.0.2
+✔ forcats   1.0.0     ✔ stringr   1.5.1
+✔ ggplot2   3.4.4     ✔ tibble    3.2.1
+✔ lubridate 1.9.3     ✔ tidyr     1.3.1
+── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::filter() masks stats::filter()
+✖ dplyr::lag()    masks stats::lag()
+ℹ Use the conflicted package (<http://conflicted.r-lib.org/>) to force all conflicts to become errors
+> library(e1071)
+> Bank = read_csv('UniversalBank.csv')
+[1mindexing[0m [34mUniversalBank.csv[0m [================================] [32m1.71GB/s[0m, eta: [36m 0s[0m                                                                                                                   Rows: 5000 Columns: 14
+── Column specification ────────────────────────────────────────────────────────
+Delimiter: ","
+dbl (14): ID, Age, Experience, Income, ZIP Code, Family, CCAvg, Education, M...
+
+ℹ Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+> set.seed(123)
+> split <- sample.split(Bank$Online & Bank$CreditCard & Bank$`Personal Loan`, SplitRatio = 0.6)
+> training_set = subset(Bank,split == TRUE)
+> test_set = subset(Bank, split == FALSE)
+> training_set
+# A tibble: 3,000 × 14
+      ID   Age Experience Income `ZIP Code` Family CCAvg Education Mortgage
+   <dbl> <dbl>      <dbl>  <dbl>      <dbl>  <dbl> <dbl>     <dbl>    <dbl>
+ 1     1    25          1     49      91107      4   1.6         1        0
+ 2     3    39         15     11      94720      1   1           1        0
+ 3     6    37         13     29      92121      4   0.4         2      155
+ 4     7    53         27     72      91711      2   1.5         2        0
+ 5     9    35         10     81      90089      3   0.6         2      104
+ 6    10    34          9    180      93023      1   8.9         3        0
+ 7    12    29          5     45      90277      3   0.1         2        0
+ 8    14    59         32     40      94920      4   2.5         2        0
+ 9    15    67         41    112      91741      1   2           1        0
+10    17    38         14    130      95010      4   4.7         3      134
+# ℹ 2,990 more rows
+# ℹ 5 more variables: `Personal Loan` <dbl>, `Securities Account` <dbl>,
+#   `CD Account` <dbl>, Online <dbl>, CreditCard <dbl>
+# ℹ Use `print(n = ...)` to see more rows
+> test_set
+# A tibble: 2,000 × 14
+      ID   Age Experience Income `ZIP Code` Family CCAvg Education Mortgage
+   <dbl> <dbl>      <dbl>  <dbl>      <dbl>  <dbl> <dbl>     <dbl>    <dbl>
+ 1     2    45         19     34      90089      3   1.5         1        0
+ 2     4    35          9    100      94112      1   2.7         2        0
+ 3     5    35          8     45      91330      4   1           2        0
+ 4     8    50         24     22      93943      1   0.3         3        0
+ 5    11    65         39    105      94710      4   2.4         3        0
+ 6    13    48         23    114      93106      2   3.8         3        0
+ 7    16    60         30     22      95054      1   1.5         3        0
+ 8    20    55         28     21      94720      1   0.5         2        0
+ 9    21    56         31     25      94015      4   0.9         2      111
+10    22    57         27     63      90095      3   2           3        0
+# ℹ 1,990 more rows
+# ℹ 5 more variables: `Personal Loan` <dbl>, `Securities Account` <dbl>,
+#   `CD Account` <dbl>, Online <dbl>, CreditCard <dbl>
+# ℹ Use `print(n = ...)` to see more rows
+> dinamicTable<-table(Online = training_set$Online, CreditCard = training_set$CreditCard, `Personal Loan`= training_set$`Personal Loan`)
+> View(dinamicTable)
+> 
+> 
+> 
+> #b. Probabilidad de que un cliente acepte la oferta de un préstamo
+> probPL<-49/3000
+> probPL
+[1] 0.01633333
+> tabla1 <- table(`Personal Loan` = training_set%`Personal Loan`, Online = training_set$Online)
+Error: unexpected input en "tabla1 <- table(`Personal Loan` = training_set%`Personal Loan`, Online = training_set$Online)"
+> tabla1 <- table(`Personal Loan` = training_set$`Personal Loan`, Online = training_set$Online)
+> tabla1
+             Online
+Personal Loan    0    1
+            0 1071 1643
+            1  124  162
+> View(tabla1)
+> tabla2 <- table(`Personal Loan` = training_set$`Personal Loan`, CreditCard = training_set$CreditCard)
+> tabla2
+             CreditCard
+Personal Loan    0    1
+            0 1917  797
+            1  197   89
+> View(tabla2)
+> 
+> 
+> 
+> #d. Probabilidades
+> 
+> #i P(CC = 1 | Loan = 1) (la proporción de titulares de tarjetas de crédito entre los
+> #aceptantes de préstamos)
+> probabilidad <- 89/(89+197)
+> probabilidad
+[1] 0.3111888
+> #
+> #
+> #P(Online = 1 | Loan = 1)
+> probabilidad2 <- 162/(162/124)
+> probabilidad2
+[1] 124
+> probabilidad2 <- 162/(162+124)
+> probabilidad2
+[1] 0.5664336
+> 
+> 
+> 
+> #iii. P(Loan = 1) (la proporción de aceptantes de préstamos)
+> probabilidad3 <- 49/(49+487)
+> probabilidad3
+[1] 0.09141791
+> 
+> 
+> #iv. P(CC = 1 | Loan = 0)
+> probabilidad4 <- 797/(797+1917)
+> probabilidad4
+[1] 0.2936625
+> 
+> 
+> #v. P(Online = 1 | Loan = 0)
+> probabilidad5 <- 1643/(1643+1071)
+> probabilidad5
+[1] 0.6053795
+> 
+> 
+> #vi. P(Loan = 0)
+> probabilidad6 <- 761/(761+84)
+> probabilidad6
+[1] 0.9005917
+> 
+> 
+> 
+> View(dinamicTable)
+> model <- naiveBayes(`Personal Loan` ~ Online + CreditCard, data = training_set)
+> Bank_df <- data.frame(Online = 1, CreditCard = 1)
+> predictionProbabilities <- predict(model, newdata = Bank_df, type = "raw")
+> print(predictionProbabilities)
+             0          1
+[1,] 0.9037675 0.09623252
+> #
+> #
+> #
+> #Cuáles de las entradas de esta tabla se necesitan para calcular P(Loan = 1 | CC = 1,
+> Online = 1)? En R, ejecuta naïve Bayes en los datos. Examina el resultado del modelo
+Error: inesperado ')' en "Online = 1)"
+> en los datos de entrenamiento y busca la entrada que corresponda a P(Loan = 1 | CC
+Error: unexpected symbol en "en los"
+> = 1, Online = 1). Compara esto con el número que se obtuvo en (e).
+
+> 
+> #g. Cuáles de las entradas de esta tabla se necesitan para calcular P(Loan = 1 | CC = 1,
+> #Online = 1)? En R, ejecuta naïve Bayes en los datos. Examina el resultado del modelo
+> #en los datos de entrenamiento y busca la entrada que corresponda a P(Loan = 1 | CC
+> #= 1, Online = 1). Compara esto con el número que se obtuvo en (e).
+> model2 <- naiveBayes(`Personal Loan` ~ Online + CreditCard, data = training_set)
+> predictions <- predict(model2, newdata = training_set)
+> training_set$predictions <- predictions
+> filter <- training_set[training_set$Online == 1 & training_set$CreditCard == 1, ]
+> print(filter[c("Online", "CreditCard", "Personal Loan")])
+# A tibble: 536 × 3
+   Online CreditCard `Personal Loan`
+    <dbl>      <dbl>           <dbl>
+ 1      1          1               0
+ 2      1          1               0
+ 3      1          1               1
+ 4      1          1               0
+ 5      1          1               1
+ 6      1          1               0
+ 7      1          1               1
+ 8      1          1               0
+ 9      1          1               0
+10      1          1               0
+# ℹ 526 more rows
+# ℹ Use `print(n = ...)` to see more rows
+> prediction2 <- predict(model2, newdata = data.frame(Online = 1, CreditCard = 1), type = "raw")
+> result <- prediction2[, "1"]
+> result
+         1 
+0.09623252 
+> 

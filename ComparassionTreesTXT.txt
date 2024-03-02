@@ -1,0 +1,398 @@
+R version 4.3.2 (2023-10-31 ucrt) -- "Eye Holes"
+Copyright (C) 2023 The R Foundation for Statistical Computing
+Platform: x86_64-w64-mingw32/x64 (64-bit)
+
+R es un software libre y viene sin GARANTIA ALGUNA.
+Usted puede redistribuirlo bajo ciertas circunstancias.
+Escriba 'license()' o 'licence()' para detalles de distribucion.
+
+R es un proyecto colaborativo con muchos contribuyentes.
+Escriba 'contributors()' para obtener más información y
+'citation()' para saber cómo citar R o paquetes de R en publicaciones.
+
+Escriba 'demo()' para demostraciones, 'help()' para el sistema on-line de ayuda,
+o 'help.start()' para abrir el sistema de ayuda HTML con su navegador.
+Escriba 'q()' para salir de R.
+
+[Previously saved workspace restored]
+
+> install.packages("ISLR")
+Installing package into ‘C:/Users/DELL/AppData/Local/R/win-library/4.3’
+(as ‘lib’ is unspecified)
+--- Please select a CRAN mirror for use in this session ---
+probando la URL 'https://cran.itam.mx/bin/windows/contrib/4.3/ISLR_1.4.zip'
+Content type 'application/zip' length 2924124 bytes (2.8 MB)
+downloaded 2.8 MB
+
+package ‘ISLR’ successfully unpacked and MD5 sums checked
+
+The downloaded binary packages are in
+        C:\Users\DELL\AppData\Local\Temp\RtmpKI5ooe\downloaded_packages
+> library(ISLR)
+> library(caret) # para workflow
+Loading required package: ggplot2
+Loading required package: lattice
+> library(rpart.plot)
+Loading required package: rpart
+> library(tidyverse)
+── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
+✔ dplyr     1.1.4     ✔ readr     2.1.5
+✔ forcats   1.0.0     ✔ stringr   1.5.1
+✔ lubridate 1.9.3     ✔ tibble    3.2.1
+✔ purrr     1.0.2     ✔ tidyr     1.3.1
+── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::filter() masks stats::filter()
+✖ dplyr::lag()    masks stats::lag()
+✖ purrr::lift()   masks caret::lift()
+ℹ Use the conflicted package (<http://conflicted.r-lib.org/>) to force all conflicts to become errors
+> library(skimr) # alternativa para glance + summary
+Error in library(skimr) : there is no package called ‘skimr’
+> install.packages("skimr")
+Installing package into ‘C:/Users/DELL/AppData/Local/R/win-library/4.3’
+(as ‘lib’ is unspecified)
+also installing the dependency ‘repr’
+
+probando la URL 'https://cran.itam.mx/bin/windows/contrib/4.3/repr_1.1.6.zip'
+Content type 'application/zip' length 124301 bytes (121 KB)
+downloaded 121 KB
+
+probando la URL 'https://cran.itam.mx/bin/windows/contrib/4.3/skimr_2.1.5.zip'
+Content type 'application/zip' length 1237169 bytes (1.2 MB)
+downloaded 1.2 MB
+
+package ‘repr’ successfully unpacked and MD5 sums checked
+package ‘skimr’ successfully unpacked and MD5 sums checked
+
+The downloaded binary packages are in
+        C:\Users\DELL\AppData\Local\Temp\RtmpKI5ooe\downloaded_packages
+> library(skimr) # alternativa para glance + summary
+> oj_dat <- OJ
+> skim(oj_dat)
+── Data Summary ────────────────────────
+                           Values
+Name                       oj_dat
+Number of rows             1070  
+Number of columns          18    
+_______________________          
+Column type frequency:           
+  factor                   2     
+  numeric                  16    
+________________________         
+Group variables            None  
+
+── Variable type: factor ───────────────────────────────────────────────────────
+  skim_variable n_missing complete_rate ordered n_unique top_counts       
+1 Purchase              0             1 FALSE          2 CH: 653, MM: 417 
+2 Store7                0             1 FALSE          2 No: 714, Yes: 356
+
+── Variable type: numeric ──────────────────────────────────────────────────────
+   skim_variable  n_missing complete_rate     mean      sd         p0     p25
+ 1 WeekofPurchase         0             1 254.     15.6    227        240    
+ 2 StoreID                0             1   3.96    2.31     1          2    
+ 3 PriceCH                0             1   1.87    0.102    1.69       1.79 
+ 4 PriceMM                0             1   2.09    0.134    1.69       1.99 
+ 5 DiscCH                 0             1   0.0519  0.117    0          0    
+ 6 DiscMM                 0             1   0.123   0.214    0          0    
+ 7 SpecialCH              0             1   0.148   0.355    0          0    
+ 8 SpecialMM              0             1   0.162   0.368    0          0    
+ 9 LoyalCH                0             1   0.566   0.308    0.000011   0.325
+10 SalePriceMM            0             1   1.96    0.253    1.19       1.69 
+11 SalePriceCH            0             1   1.82    0.143    1.39       1.75 
+12 PriceDiff              0             1   0.146   0.272   -0.67       0    
+13 PctDiscMM              0             1   0.0593  0.102    0          0    
+14 PctDiscCH              0             1   0.0273  0.0622   0          0    
+15 ListPriceDiff          0             1   0.218   0.108    0          0.14 
+16 STORE                  0             1   1.63    1.43     0          0    
+      p50     p75    p100 hist 
+ 1 257    268     278     ▆▅▅▇▇
+ 2   3      7       7     ▇▅▃▁▇
+ 3   1.86   1.99    2.09  ▅▂▇▆▁
+ 4   2.09   2.18    2.29  ▂▁▃▇▆
+ 5   0      0       0.5   ▇▁▁▁▁
+ 6   0      0.23    0.8   ▇▁▂▁▁
+ 7   0      0       1     ▇▁▁▁▂
+ 8   0      0       1     ▇▁▁▁▂
+ 9   0.6    0.851   1.00  ▅▃▆▆▇
+10   2.09   2.13    2.29  ▁▂▂▂▇
+11   1.86   1.89    2.09  ▂▁▇▇▅
+12   0.23   0.32    0.64  ▁▂▃▇▂
+13   0      0.113   0.402 ▇▁▂▁▁
+14   0      0       0.253 ▇▁▁▁▁
+15   0.24   0.3     0.44  ▂▃▆▇▁
+16   2      3       4     ▇▃▅▅▃
+> set.seed(12345)
+> partition <- createDataPartition(y = oj_dat$Purchase, p = 0.8, list = FALSE)
+> oj.train <- oj_dat[partition, ]
+> oj.test <- oj_dat[-partition, ]
+> rm(partition)
+> 
+> 
+> set.seed(123)
+> oj.full_class <- rpart(formula = Purchase ~ .,
++ data = oj.train,
++ method = "class", # classification (not regression)
++ xval = 10 # 10-fold cross-validation
++ )
+> rpart.plot(oj.full_class, yesno = TRUE)
+> printcp(oj.full_class)
+
+Classification tree:
+rpart(formula = Purchase ~ ., data = oj.train, method = "class", 
+    xval = 10)
+
+Variables actually used in tree construction:
+[1] LoyalCH     PriceDiff   SalePriceMM
+
+Root node error: 334/857 = 0.38973
+
+n= 857 
+
+        CP nsplit rel error  xerror     xstd
+1 0.479042      0   1.00000 1.00000 0.042745
+2 0.032934      1   0.52096 0.54192 0.035775
+3 0.013473      3   0.45509 0.47006 0.033905
+4 0.010000      5   0.42814 0.46407 0.033736
+> plotcp(oj.full_class)
+> 
+> 
+> oj.class <- prune(oj.full_class,
++ cp = oj.full_class$cptable[which.min(oj.full_class$cptable[, "xerror"]), "CP"])
+> rm(oj.full_class)
+> rpart.plot(oj.class, yesno = TRUE)
+> 
+> 
+> 
+> oj.class.pred <- predict(oj.class, oj.test, type = "class")
+> plot(oj.test$Purchase, oj.class.pred,
++ main = "Simple Classification: Predicted vs. Actual",
++ xlab = "Actual",
++ ylab = "Predicted")
+> 
+> 
+> 
+> (oj.class.conf <- confusionMatrix(data = oj.class.pred,
++ reference = oj.test$Purchase))
+Confusion Matrix and Statistics
+
+          Reference
+Prediction  CH  MM
+        CH 117  18
+        MM  13  65
+                                          
+               Accuracy : 0.8545          
+                 95% CI : (0.7998, 0.8989)
+    No Information Rate : 0.6103          
+    P-Value [Acc > NIR] : 4.83e-15        
+                                          
+                  Kappa : 0.6907          
+                                          
+ Mcnemar's Test P-Value : 0.4725          
+                                          
+            Sensitivity : 0.9000          
+            Specificity : 0.7831          
+         Pos Pred Value : 0.8667          
+         Neg Pred Value : 0.8333          
+             Prevalence : 0.6103          
+         Detection Rate : 0.5493          
+   Detection Prevalence : 0.6338          
+      Balanced Accuracy : 0.8416          
+                                          
+       'Positive' Class : CH              
+                                          
+> 
+> 
+> 
+> oj.class.acc <- as.numeric(oj.class.conf$overall[1])
+> rm(oj.class.pred)
+> rm(oj.class.conf)
+> 
+> 
+> 
+> oj.class2 = train(Purchase ~ .,
++ data = oj.train,
++ method = "rpart", # for classification tree
++ tuneLength = 5, # choose up to 5 combinations of tuning parameters (cp)
++ metric='ROC', # evaluate hyperparameter combinations with ROC
++ trControl = trainControl(
++ method = "cv", # k-fold cross validation
++ number = 10, # 10 folds
++ savePredictions = "final", # save predictions for the optimal tuning parameter
++ classProbs = TRUE, # return class probabilities in addition to predicted values
++ summaryFunction = twoClassSummary # for binary response variable
++ )
++ )
+> oj.class2
+CART 
+
+857 samples
+ 17 predictor
+  2 classes: 'CH', 'MM' 
+
+No pre-processing
+Resampling: Cross-Validated (10 fold) 
+Summary of sample sizes: 771, 772, 772, 772, 770, 770, ... 
+Resampling results across tuning parameters:
+
+  cp           ROC        Sens       Spec     
+  0.005988024  0.8497527  0.8545718  0.7427807
+  0.008982036  0.8495648  0.8431060  0.7309269
+  0.013473054  0.8385888  0.8279390  0.7426916
+  0.032934132  0.7895605  0.8543904  0.6948307
+  0.479041916  0.6213113  0.9042090  0.3384135
+
+ROC was used to select the optimal model using the largest value.
+The final value used for the model was cp = 0.005988024.
+> plot(oj.class2)
+> 
+> 
+> 
+> oj.class.pred <- predict(oj.class2, oj.test, type = "raw")
+> plot(oj.test$Purchase, oj.class.pred,
++ main = "Simple Classification: Predicted vs. Actual",
++ xlab = "Actual",
++ ylab = "Predicted")
+> 
+> 
+> 
+> (oj.class.conf <- confusionMatrix(data = oj.class.pred,
++ reference = oj.test$Purchase))
+Confusion Matrix and Statistics
+
+          Reference
+Prediction  CH  MM
+        CH 115  18
+        MM  15  65
+                                          
+               Accuracy : 0.8451          
+                 95% CI : (0.7894, 0.8909)
+    No Information Rate : 0.6103          
+    P-Value [Acc > NIR] : 6.311e-14       
+                                          
+                  Kappa : 0.6721          
+                                          
+ Mcnemar's Test P-Value : 0.7277          
+                                          
+            Sensitivity : 0.8846          
+            Specificity : 0.7831          
+         Pos Pred Value : 0.8647          
+         Neg Pred Value : 0.8125          
+             Prevalence : 0.6103          
+         Detection Rate : 0.5399          
+   Detection Prevalence : 0.6244          
+      Balanced Accuracy : 0.8339          
+                                          
+       'Positive' Class : CH              
+                                          
+> 
+> 
+> 
+> oj.class.acc2 <- as.numeric(oj.class.conf$overall[1])
+> rm(oj.class.pred)
+> rm(oj.class.conf)
+> rpart.plot(oj.class2$finalModel)
+> 
+> 
+> 
+> 
+> plot(varImp(oj.class2), main="Variable Importance with Simple Classication")
+> rpart.plot(oj.class2$finalModel)
+> plot(varImp(oj.class2), main="Variable Importance with Simple Classication")
+> 
+> 
+> 
+> myGrid <- expand.grid(cp = (0:1)/10)
+> oj.class3 = train(Purchase ~ .,
++ data = oj.train,
++ method = "rpart", # for classification tree
++ tuneGrid = myGrid, # choose up to 5 combinations of tuning parameters (cp)
++ metric='ROC', # evaluate hyperparamter combinations with ROC
++ trControl = trainControl(
++ method = "cv", # k-fold cross validation
++ number = 10, # 10 folds
++ savePredictions = "final", # save predictions for the optimal tuning parameter
++ classProbs = TRUE, # return class probabilities in addition to predicted values
++ summaryFunction = twoClassSummary # for binary response variable
++ )
++ )
+> rm(myGrid)
+> oj.class3
+CART 
+
+857 samples
+ 17 predictor
+  2 classes: 'CH', 'MM' 
+
+No pre-processing
+Resampling: Cross-Validated (10 fold) 
+Summary of sample sizes: 771, 772, 771, 772, 770, 771, ... 
+Resampling results across tuning parameters:
+
+  cp   ROC        Sens       Spec     
+  0.0  0.8546574  0.8545718  0.7156863
+  0.1  0.7769290  0.8239115  0.7299465
+
+ROC was used to select the optimal model using the largest value.
+The final value used for the model was cp = 0.
+> plot(oj.class3)
+> 
+> 
+> 
+> 
+> oj.class.pred <- predict(oj.class3, oj.test, type = "raw")
+> plot(oj.test$Purchase, oj.class.pred,
++ main = "Simple Classification: Predicted vs. Actual",
++ xlab = "Actual",
++ ylab = "Predicted")
+> 
+> 
+> 
+> (oj.class.conf <- confusionMatrix(data = oj.class.pred,
++ reference = oj.test$Purchase))
+Confusion Matrix and Statistics
+
+          Reference
+Prediction  CH  MM
+        CH 116  18
+        MM  14  65
+                                          
+               Accuracy : 0.8498          
+                 95% CI : (0.7946, 0.8949)
+    No Information Rate : 0.6103          
+    P-Value [Acc > NIR] : 1.778e-14       
+                                          
+                  Kappa : 0.6814          
+                                          
+ Mcnemar's Test P-Value : 0.5959          
+                                          
+            Sensitivity : 0.8923          
+            Specificity : 0.7831          
+         Pos Pred Value : 0.8657          
+         Neg Pred Value : 0.8228          
+             Prevalence : 0.6103          
+         Detection Rate : 0.5446          
+   Detection Prevalence : 0.6291          
+      Balanced Accuracy : 0.8377          
+                                          
+       'Positive' Class : CH              
+                                          
+> 
+> 
+> oj.class.acc3 <- as.numeric(oj.class.conf$overall[1])
+> rm(oj.class.pred)
+> rm(oj.class.conf)
+> rpart.plot(oj.class3$finalModel)
+> 
+> 
+> plot(varImp(oj.class3), main="Variable Importance with Simple Classication")
+> 
+> 
+> 
+> rbind(data.frame(model = "Manual Class", Acc = round(oj.class.acc, 5)),
++ data.frame(model = "Caret w/tuneLength", Acc = round(oj.class.acc2, 5)),
++ data.frame(model = "Caret w.tuneGrid", Acc = round(oj.class.acc3, 5))
++ )
+               model     Acc
+1       Manual Class 0.85446
+2 Caret w/tuneLength 0.84507
+3   Caret w.tuneGrid 0.84977
+> 
